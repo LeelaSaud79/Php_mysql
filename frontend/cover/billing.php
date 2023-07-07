@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-    <?php
-    session_start();
-    ?>
+<?php
+session_start();
+?>
 
 <head>
     <title>Frontend</title>
@@ -70,15 +70,15 @@
         <br><br>
 
 
-         <!-- Order Items -->
-    <!-- <h2>Order items</h2> -->
-        <!-- <label for="product_ids">Product IDs:</label>
+        <!-- Order Items -->
+        <!-- <h2>Order items</h2>
+        <label for="product_ids">Product IDs:</label>
         <input type="text" name="product_ids" id="product_ids" required>
         <br><br>
         <label for="quantities">Quantities:</label>
         <input type="text" name="quantities" id="quantities" required>
         <br><br> -->
-    
+
 
 
         <!-- Submit Button -->

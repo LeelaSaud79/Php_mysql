@@ -1,6 +1,7 @@
-<?php
-session_start();
+<?php 
+include 'navbar.php'; 
 ?>
+
 
 
 <!DOCTYPE html>
@@ -24,7 +25,7 @@ session_start();
 
 
         h1 {
-            font-family: cursive;
+            font-family: inherit;
             font-size: 45px;
             color: #333333;
             text-align: left;
@@ -56,7 +57,7 @@ session_start();
 
 <body>
     <div class="container">
-        <h1>Latest Collection</h1>
+        <h1>Let's start?</h1>
 
         <?php
 
@@ -94,7 +95,7 @@ session_start();
                 // echo '<img src="../adminview/uploadimage/laptop.jpg" alt="Image">';
         
                 echo '<p>Rs. ' . $productPrice . '</p>';
-                echo '<a href="product_details.php?prod_id=' . $row["prod_id"] . '">Order Now</a>';
+                echo '<a href="product_details.php?prod_id=' . $row["prod_id"] . '">Shop Now</a>';
                 echo '</div>';
             }
         } else {

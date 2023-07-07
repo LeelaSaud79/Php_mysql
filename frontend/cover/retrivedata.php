@@ -3,7 +3,7 @@ session_start();
 
 $OrderProduct = '[
     {
-        "prod_id": 41,
+        "prod_id": 40,
         "quantity": 5
     },
     {

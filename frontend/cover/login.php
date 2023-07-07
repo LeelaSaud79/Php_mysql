@@ -1,7 +1,40 @@
+<?php
+session_start();
+
+if (isset($_POST['login'])) {
+    $conn = mysqli_connect("localhost", "root", "", "comm");
+
+    $username = mysqli_real_escape_string($conn, $_POST['username']); // Sanitize user input
+    $password = mysqli_real_escape_string($conn, $_POST['password']); // Sanitize user input
+
+    $sql = "SELECT * FROM `login_details` WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $resultpassword = $row['password'];
+
+        if ($password == $resultpassword) {
+            $_SESSION['username'] = $username;
+            header('Location: http://localhost/Backend/#products');
+            exit;
+        } else {
+            echo "<script>
+                alert('Login unsuccessful');
+            </script>";
+        }
+    } else {
+        echo "<script>
+            alert('Username not found');
+        </script>";
+    }
+
+    mysqli_close($conn); // Close the database connection
+}
+?>
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>login</title>
     <style type="text/css">
@@ -56,40 +89,5 @@
 
         </table>
     </form>
-    <?php
-session_start();
-
-$conn = mysqli_connect("localhost", "root", "", "comm");
-
-if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $sql = "SELECT * FROM `login_details` WHERE username = '$username'";
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $resultpassword = $row['password'];
-
-        if ($password == $resultpassword) {
-            $_SESSION['username'] = $username;
-            header('location: http://localhost/Backend/#products');
-            exit;
-        } else {
-            echo "<script>
-                alert('Login unsuccessful');
-            </script>";
-        }
-    } else {
-        echo "<script>
-            alert('Username not found');
-        </script>";
-    }
-}
-?>
-
-
 </body>
-
 </html>

@@ -1,6 +1,55 @@
 <?php
-    session_start();
-    ?>
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Assuming you have a database connection established
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "comm";
+
+    // Create a connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check for connection errors
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Get the values submitted in the form
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Prepare a SQL query to fetch user data based on the submitted email
+    $sql = "SELECT * FROM registration WHERE email = '$email'";
+    $result = $conn->query($sql);
+
+    if ($result) {
+        // Query executed successfully, check if user exists
+        if ($result->num_rows > 0) {
+            // User found, check the password
+            $user = $result->fetch_assoc();
+            if ($user['password'] == $password) {
+                // Password matches, set session variables or perform any necessary tasks
+                $_SESSION['user_id'] = $user['id'];
+
+                // Redirect to the home page
+                header("Location: http://localhost/frontend/cover/");
+                exit();
+            }
+        }
+    } else {
+        // Query execution failed
+        echo "Error: " . $conn->error;
+    }
+
+    // Incorrect username or password
+    $error_message = "Incorrect username or password.";
+
+    // Close the database connection
+    $conn->close();
+}
+?>
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +64,7 @@
 <body>
     <div class="form-container">
         <h2>Sign In</h2>
-        <form action="#">
+        <form action="" method="POST">
             <div class="form-outline mb-4">
                 <input type="email" name="email" id="email" class="form-control" />
                 <label for="email" class="form-label">Email</label>
@@ -38,11 +87,12 @@
                     <a href="#">Forget Password</a>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary btn-floating mb-4">Sign in</button>
+
+            <button type="submit" class="btn btn-primary btn-floating mb-4">Sign in</button>
 
             <!-- Register button -->
             <div class="text-center">
-                <p>Not a member? <a href="#">Register</a></p>
+                <p>Not a member? <a href="registerform.php">Register</a></p>
                 <p>or sign up with:</p>
 
                 <button type="button" class="btn btn-link btn-floating mx-1">
@@ -58,6 +108,11 @@
                 </button>
             </div>
         </form>
+        <?php
+        if (isset($error_message)) {
+            echo '<div class="alert alert-danger">' . $error_message . '</div>';
+        }
+        ?>
     </div>
 </body>
 

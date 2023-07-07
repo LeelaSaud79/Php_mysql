@@ -1,9 +1,22 @@
 <?php
 session_start();
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "comm";
+
+// Create a connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check for connection errors
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -73,8 +86,6 @@ session_start();
       font-weight: bold;
     }
   </style>
-
-
 </head>
 
 <body>
@@ -93,22 +104,27 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link mr-6" href="#">Home</a>
+              <a class="nav-link mr-6" href="http://localhost/frontend/cover/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mr-6" href="products.php">Shop Now</a>
+              <!-- <a class="nav-link mr-6" href="products.php">Shop Now</a> -->
             </li>
             <li class="nav-item">
-              <a class="nav-link mr-6" href="#">Contacts</a>
+              <!-- <a class="nav-link mr-6" href="#">Contacts</a> -->
             </li>
             <li class="nav-item">
-              <a class="nav-link mr-6" href="form.php">Log In/Register</a>
+              <!-- <a class="nav-link mr-6" href="form.php">Log In/Register</a> -->
             </li>
             <li class="nav-item">
-              <a class="nav-link mr-6" href="Login.php">Admin Login</a>
+              <!-- <a class="nav-link mr-6" href="Login.php">Admin Login</a> -->
             </li>
             <li class="nav-item">
-              <a class="btn btn-outline-success" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+              <!-- <a class="nav-link mr-6" href="billing.php">Billing/Shipping Details</a> -->
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-success" href="cartdetails.php"><i class="fa-solid fa-cart-shopping"></i>
+                <sup id="cartCount">0</sup></a>
+
             </li>
 
           </ul>
@@ -120,79 +136,9 @@ session_start();
       </div>
     </nav>
   </header>
-  <div style="display: flex; align-items: flex-start;">
-    <img src="./image/cover.png" height="400px" width="400px" alt="image">
-    <div style="position: absolute; top: 108px; left: 500px; font-size: 65px; font-weight: bold; 
-    background-color: white; padding: 20px; color: darkslategray;">
-      Pamper yourself and feel amazing today!!
-    </div>
-  </div>
-
-  <div style="display: flex; align-items: flex-start;">
-    <div style="position: relative; right: 0; top: 20px; font-size: 80px; font-weight: bold; color: grey;">
-      So, let's shop now <a href="products.php"><button style="background-color: lightgrey;
-       color: azure; padding: 10px 20px; cursor: pointer;">Shop Now</button></a>
-    </div>
-    <img src="./image/girl.png" style="height: 400px; width: 675px;">
-  </div>
-  <?php include 'recentlyview.php'; ?>
-
-  <div class="products-heading">
-    <h2>Latest Trending Items</h2>
-  </div>
-
-
-  <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "comm";
-  $path = "http://localhost/Backend/";
- 
-
-  // Create a connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
-
-  // Check the connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
-
-  // Fetch products from the database
-  $sql = "SELECT * FROM products LIMIT 6";
-  $result = $conn->query($sql);
-  if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-      $productName = $row["name"];
-      $productPrice = number_format($row["price"], 0, '', ',');
-      $productImage = $row["image"];
-      // echo $productImage;
-  
-      echo '<div class="product">';
-      echo '<h2>' . $productName . '</h2>';
-      // echo dirname( __FILE__ );
-      echo '<img src="' . $path . '/adminview/' . $productImage . '" alt="image">';
-
-      echo '<p>Rs. ' . $productPrice . '</p>';
-      echo '<a href="product_details.php?prod_id=' . $row["prod_id"] . '">Order Now</a>';
-      echo '</div>';
-    }
-  } else {
-    echo "No products found.";
-  }
-
-  // Close database connection
-  mysqli_close($conn);
-  ?>
-
   <!-- bootstrap js link -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-  <a href="products.php" style="display: inline-block; 
-  padding: 10px 20px; background-color: lightcoral; color: #ffffff; border-radius: 21px; 
-  text-align: center; cursor: pointer; float: right;">See More</a>
-
 </body>
 
 </html>

@@ -1,5 +1,15 @@
 <?php
+
+
 session_start();
+
+if (!isset($_SESSION['username'])) {
+    // header('location: login.php');
+    header('location: http://localhost/frontend/cover/Login.php');
+    exit;
+    
+}
+
 require_once('../config/dbconnect.php');
 $query = "SELECT * from finalorder";
 $result = mysqli_query($conn, $query);

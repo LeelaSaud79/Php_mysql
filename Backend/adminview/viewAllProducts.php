@@ -1,5 +1,13 @@
 <?php
+
 session_start();
+
+if (!isset($_SESSION['username'])) {
+    // header('location: login.php');
+    header('location: http://localhost/frontend/cover/Login.php');
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +48,9 @@ session_start();
           <th scope="col">Name</th>
           <th scope="col">Price</th>
           <th scope="col">Image</th>
+          <th scope="col">Description</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Additonal Information</th>
           <th scope="col">Delete</th>
           <th scope="col">Edit</th>
 
@@ -56,6 +67,11 @@ session_start();
       <td>$row[name]</td>
       <td>$row[price]</td>
       <td><img src='./adminview/$row[image]' width='200px' height='200px'></td>
+
+      <td>$row[description]</td>
+      <td>$row[rating]</td>
+      <td>$row[add_info]</td>
+
       <td><a href='./adminview/deleteItem.php?Id=$row[prod_id]' class='btn btn-danger'>Delete</a></td>
       <td><a href='./adminview/updateItem.php?Id=$row[prod_id]' class='btn btn-primary'>Update</a></td>
     </tr>
