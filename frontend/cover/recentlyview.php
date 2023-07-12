@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Recently Viewed Products</title>
-    
 </head>
+
 <body>
     <h2>Recently Viewed Products</h2>
     <div class="product-container">
         <?php
         // Retrieve the recently viewed products from the cookie or initialize it as an empty array
         $recentlyViewed = isset($_COOKIE['recentlyViewed']) ? json_decode($_COOKIE['recentlyViewed'], true) : [];
+
+        // Update the recently viewed items
+        if (isset($_GET['prod_id'])) {
+            $productId = $_GET['prod_id'];
+
+            // Check if the product ID already exists in the recently viewed array
+            $index = array_search($productId, $recentlyViewed);
+            if ($index !== false) {
+                // Remove the product ID from its current position
+                array_splice($recentlyViewed, $index, 1);
+            }
+
+            // Add the product ID at the beginning of the array
+            array_unshift($recentlyViewed, $productId);
+
+            // Limit the recently viewed items to a certain number (e.g., 5)
+            $recentlyViewed = array_slice($recentlyViewed, 0, 5);
+
+            // Update the "recentlyViewed" cookie with the updated array
+            setcookie('recentlyViewed', json_encode($recentlyViewed), time() + (86400 * 30), "/");
+        }
 
         // Display the recently viewed products
         if (!empty($recentlyViewed)) {
@@ -51,13 +73,11 @@
 
             // Close database connection
             mysqli_close($conn);
-
-            // Update the "recentlyViewed" cookie with the updated array
-            setcookie('recentlyViewed', json_encode($recentlyViewed), time() + (86400 * 30), "/");
         } else {
             echo '<p class="no-items">No recently viewed items.</p>';
         }
         ?>
     </div>
 </body>
+
 </html>

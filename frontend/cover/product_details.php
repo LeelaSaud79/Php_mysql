@@ -1,26 +1,52 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "comm";
+
+// Create a connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check for connection errors
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Retrieve the product details
+$prod_id = $_GET['prod_id'];
+$query = "SELECT * FROM products WHERE prod_id = $prod_id";
+$result = mysqli_query($conn, $query);
+$product = mysqli_fetch_assoc($result);
+$path = "http://localhost/Backend/";
+mysqli_close($conn);
+
+// Update the recently viewed items
+$recentlyViewed = isset($_COOKIE['recentlyViewed']) ? json_decode($_COOKIE['recentlyViewed'], true) : [];
+$currentProductId = $prod_id;
+if (!in_array($currentProductId, $recentlyViewed)) {
+    $recentlyViewed[] = $currentProductId;
+}
+$maxRecentlyViewedItems = 5;
+$recentlyViewed = array_slice($recentlyViewed, -$maxRecentlyViewedItems);
+setcookie('recentlyViewed', json_encode($recentlyViewed), time() + (86400 * 30), "/");
+?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="prod_det.css">
     <title>Product Details</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         
     </style>
-    <link rel="stylesheet" href="product.css">
 </head>
-
+<?php include 'navbar.php'; ?>
 <body>
-    <?php include 'navbar.php'; ?>
-    <?php
-    $prod_id = $_GET['prod_id'];
-    $conn = mysqli_connect("localhost", "root", "", "comm");
-    $query = "SELECT * FROM products WHERE prod_id = $prod_id";
-    $result = mysqli_query($conn, $query);
-    $product = mysqli_fetch_assoc($result);
-    $path = "http://localhost/Backend/";
-    mysqli_close($conn);
-    ?>
+    
 
     <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'des')">Description</button>
@@ -31,34 +57,44 @@
     <div class="tabcontainer">
         <div id="des" class="tabcontent">
             <h3>Description</h3>
-            <p><?php echo $product['description']; ?></p>
+            <p>
+                <?php echo $product['description']; ?>
+            </p>
         </div>
 
         <div id="review" class="tabcontent">
             <h3>Review</h3>
-            <p><?php echo $product['rating']; ?></p>
+            <p>
+                <?php echo $product['rating']; ?>
+            </p>
         </div>
 
         <div id="Add" class="tabcontent">
             <h3>Additional Information</h3>
-            <p><?php echo $product['add_info']; ?></p>
+            <p>
+                <?php echo $product['add_info']; ?>
+            </p>
         </div>
     </div>
 
     <div class="container">
-        <h1><?php echo $product['name']; ?></h1>
+        <h1>
+            <?php echo $product['name']; ?>
+        </h1>
         <img src="<?php echo $path . '/adminview/' . $product['image']; ?>" alt="Image" width="300px" height="300px">
-        <p>Rs. <?php echo number_format($product['price'], 0, '', ','); ?></p>
+        <p>Rs.
+            <?php echo number_format($product['price'], 0, '', ','); ?>
+        </p>
         <p>Quantity: <input type="number" name="quantity" value="1" min="1" max="5"></p>
         <button class="buy-now" style="cursor: pointer;"><a href="form.php">Buy Now</a></button>
         <button class="add-to-cart-btn" style="cursor: pointer;">Add to Cart</button>
-        <a href="products.php" class="continue-shopping">Continue Shopping</a>
+        <a href="products.php" style="display: inline-block; 
+            padding: 10px 20px; background-color: lightcoral; color: #ffffff; border-radius: 21px; 
+            text-align: center; cursor: pointer; float: right;">Continue Shopping</a>
     </div>
-
     <script>
         function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
+            var i, tabcontent, tablinks; tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
@@ -113,17 +149,6 @@
             });
         });
     </script>
-
-    <?php
-    $recentlyViewed = isset($_COOKIE['recentlyViewed']) ? json_decode($_COOKIE['recentlyViewed'], true) : [];
-    $currentProductId = $prod_id;
-    if (!in_array($currentProductId, $recentlyViewed)) {
-        $recentlyViewed[] = $currentProductId;
-    }
-    $maxRecentlyViewedItems = 5;
-    $recentlyViewed = array_slice($recentlyViewed, -$maxRecentlyViewedItems);
-    setcookie('recentlyViewed', json_encode($recentlyViewed), time() + (86400 * 30), "/");
-    ?>
 </body>
 
 </html>

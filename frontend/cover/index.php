@@ -3,14 +3,15 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ecommerce project</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" type="text/css" href="item.css">
+  <!-- <link rel="stylesheet" type="text/css" href="prod_det.css"> -->
   <style>
     header {
       position: sticky;
@@ -33,7 +34,7 @@ session_start();
 
     a {
       text-decoration: none;
-      color: #000;
+      color: black;
       font-weight: bold;
     }
 
@@ -73,6 +74,21 @@ session_start();
       font-weight: bold;
     }
   </style>
+
+  <script>
+    window.onload = function () {
+      setTimeout(function () {
+        var slogan = document.createElement('p');
+        slogan.innerHTML = "Find it, Love it, Buy it";
+        slogan.style.fontSize = "24px";
+        slogan.style.fontWeight = "bold";
+        slogan.style.color = "grey";
+        var shopNowLink = document.querySelector('.shop-now-link');
+        shopNowLink.parentNode.insertBefore(slogan, shopNowLink.nextSibling);
+      }, 3000);
+    }
+  </script>
+
 
 
 </head>
@@ -128,14 +144,28 @@ session_start();
     </div>
   </div>
 
-  <div style="display: flex; align-items: flex-start;">
+  <!-- <div class="shop-now-section">
     <div style="position: relative; right: 0; top: 20px; font-size: 80px; font-weight: bold; color: grey;">
       So, let's shop now <a href="products.php"><button style="background-color: lightgrey;
-       color: azure; padding: 10px 20px; cursor: pointer;">Shop Now</button></a>
+      color: azure; padding: 10px 20px; cursor: pointer;">Shop Now</button></a>
+    </div>
+  </div> -->
+
+  <div style="display: flex; align-items: flex-start;">
+    <div class="shop-now-section">
+      <div style="position: relative; right: 0; top: 20px; font-size: 80px; font-weight: bold; color: grey;">
+        So, let's shop now <a href="products.php" class="shop-now-link"><button
+            style="background-color: lightgrey; color: azure; padding: 10px 20px; cursor: pointer;">Shop
+            Now</button></a>
+      </div>
     </div>
     <img src="./image/girl.png" style="height: 400px; width: 675px;">
   </div>
-  <?php include 'recentlyview.php'; ?>
+
+
+  <div>
+    <?php include 'recentlyview.php'; ?>
+  </div>
 
   <div class="products-heading">
     <h2>Latest Trending Items</h2>
@@ -148,7 +178,7 @@ session_start();
   $password = "";
   $dbname = "comm";
   $path = "http://localhost/Backend/";
- 
+
 
   // Create a connection
   $conn = new mysqli($servername, $username, $password, $dbname);
@@ -167,13 +197,10 @@ session_start();
       $productName = $row["name"];
       $productPrice = number_format($row["price"], 0, '', ',');
       $productImage = $row["image"];
-      // echo $productImage;
-  
+
       echo '<div class="product">';
       echo '<h2>' . $productName . '</h2>';
-      // echo dirname( __FILE__ );
       echo '<img src="' . $path . '/adminview/' . $productImage . '" alt="image">';
-
       echo '<p>Rs. ' . $productPrice . '</p>';
       echo '<a href="product_details.php?prod_id=' . $row["prod_id"] . '">Order Now</a>';
       echo '</div>';

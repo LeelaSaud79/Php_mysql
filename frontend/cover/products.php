@@ -1,8 +1,6 @@
-<?php 
-include 'navbar.php'; 
+<?php
+// include 'navbar.php'; 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,27 +9,27 @@ include 'navbar.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="item.css"> -->
     <title>Latest Collection</title>
     <style>
         body {
             background-color: ghostwhite;
         }
-        
-        a {
-      text-decoration: none;
-      color: #000;
-      font-weight: bold;
-    }
 
+        a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
 
         h1 {
             font-family: inherit;
             font-size: 45px;
             color: #333333;
             text-align: left;
-    
+            font: initial;
+            color: darkorchid;
         }
-
 
         .product {
             display: inline-block;
@@ -57,13 +55,11 @@ include 'navbar.php';
 
 <body>
     <div class="container">
-        <h1>Let's start?</h1>
 
         <?php
-
-
         // Database connection
-        // include 'navbar.php';
+        include 'navbar.php';
+        echo '<h1>Latest Collection</h1>';
         $servername = "localhost";
         $username = "root";
         $password = "";
@@ -84,16 +80,10 @@ include 'navbar.php';
                 $productName = $row["name"];
                 $productPrice = number_format($row["price"], 0, '', ',');
                 $productImage = $row["image"];
-                // echo $productImage;
-        
+
                 echo '<div class="product">';
                 echo '<h2>' . $productName . '</h2>';
-                // echo dirname( __FILE__ );
                 echo '<img src="' . $path . '/adminview/' . $productImage . '" alt="image">';
-
-
-                // echo '<img src="../adminview/uploadimage/laptop.jpg" alt="Image">';
-        
                 echo '<p>Rs. ' . $productPrice . '</p>';
                 echo '<a href="product_details.php?prod_id=' . $row["prod_id"] . '">Shop Now</a>';
                 echo '</div>';
@@ -105,7 +95,6 @@ include 'navbar.php';
         // Close database connection
         mysqli_close($conn);
         ?>
-
 
     </div>
 </body>
