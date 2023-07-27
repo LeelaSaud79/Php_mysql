@@ -3,9 +3,9 @@
 session_start();
 
 if (!isset($_SESSION['username'])) {
-    // header('location: login.php');
-    header('location: http://localhost/frontend/cover/Login.php');
-    exit;
+  // header('location: login.php');
+  header('location: http://localhost/frontend/cover/Login.php');
+  exit;
 }
 
 ?>
@@ -14,6 +14,15 @@ if (!isset($_SESSION['username'])) {
 <html>
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW1MY7HB4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-PSW1MY7HB4');
+  </script>
   <title>Task Today</title>
 </head>
 
@@ -87,7 +96,7 @@ if (!isset($_SESSION['username'])) {
       </div>
 
       <div style="position:fixed; bottom: 20px; right: 20px;">
-        <a href="./adminview/logout.php" class= "btn btn-outline-success">Logout</a>
+        <a href="./adminview/logout.php" class="btn btn-outline-success">Logout</a>
       </div>
 
 

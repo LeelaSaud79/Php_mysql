@@ -3,19 +3,19 @@ session_start();
 
 $OrderProduct = '[
     {
-        "prod_id": 40,
+        "prod_id": 58,
         "quantity": 5
     },
     {
-        "prod_id": 42,
+        "prod_id": 59,
         "quantity": 5
     },
     {
-        "prod_id": 43,
+        "prod_id": 52,
         "quantity": 5
     },
     {
-        "prod_id": 44,
+        "prod_id": 60,
         "quantity": 4
     }
 ]';

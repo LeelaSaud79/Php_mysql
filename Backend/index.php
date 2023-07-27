@@ -9,7 +9,17 @@ require_once('./config/dbconnect.php');
 
 <!DOCTYPE html>
 <html>
+
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW1MY7HB4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-PSW1MY7HB4');
+    </script>
     <title>Admin</title>
 
     <head>
@@ -22,7 +32,7 @@ require_once('./config/dbconnect.php');
     </head>
 </head>
 
-<body> 
+<body>
     <div id="main-content" class="container allContent-section py-4">
         <div class="row">
             <div class="col-sm-3">
@@ -30,7 +40,7 @@ require_once('./config/dbconnect.php');
                     <i class="fa fa-th mb-2" style="font-size: 70px;"></i>
                     <h4 style="color:white;">Total Products</h4>
                     <h5 style="color:white;">
-                    <?php
+                        <?php
 
                         $sql = "SELECT * from products";
                         $result = $conn->query($sql);

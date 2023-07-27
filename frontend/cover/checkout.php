@@ -49,6 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW1MY7HB4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-PSW1MY7HB4');
+    </script>
     <title>Confirm Products</title>
     <link rel="stylesheet" href="checkout.css">
 
@@ -99,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </table>
             <?php else: ?>
                 <p class="empty-cart-msg">No items in the cart</p>
-            <?php endif; 
+            <?php endif;
             // header('location: checkout.php');
             ?>
         </div>

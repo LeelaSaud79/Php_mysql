@@ -60,8 +60,16 @@ if ($result) {
 
         <!DOCTYPE html>
         <html>
-
         <head>
+            <!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW1MY7HB4"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+
+                gtag('config', 'G-PSW1MY7HB4');
+            </script>
             <title>Product Details</title>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
         </head>
@@ -80,9 +88,15 @@ if ($result) {
                             <td>Shipping Address</td>
                         </tr>
                         <tr>
-                            <td><?php echo $shipmentDetails['ship_id']; ?></td>
-                            <td><?php echo $shipmentDetails['shiping_name']; ?></td>
-                            <td><?php echo $shipmentDetails['shipping_address']; ?></td>
+                            <td>
+                                <?php echo $shipmentDetails['ship_id']; ?>
+                            </td>
+                            <td>
+                                <?php echo $shipmentDetails['shiping_name']; ?>
+                            </td>
+                            <td>
+                                <?php echo $shipmentDetails['shipping_address']; ?>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -99,11 +113,21 @@ if ($result) {
                                 <td>Order ID</td>
                             </tr>
                             <tr>
-                                <td><?php echo $orderDetails['id']; ?></td>
-                                <td><?php echo $orderDetails['date']; ?></td>
-                                <td><?php echo $orderDetails['quantity']; ?></td>
-                                <td><?php echo $orderDetails['prod_id']; ?></td>
-                                <td><?php echo $orderDetails['order_id']; ?></td>
+                                <td>
+                                    <?php echo $orderDetails['id']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $orderDetails['date']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $orderDetails['quantity']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $orderDetails['prod_id']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $orderDetails['order_id']; ?>
+                                </td>
                             </tr>
                         </table>
                     <?php } else {
@@ -131,16 +155,24 @@ if ($result) {
                                 $totalPrice += $productRow['price']; // Add the price of each product to the total price
                                 ?>
                                 <tr>
-                                    <td><?php echo $orderDetails['order_id']; ?></td>
-                                    <td><?php echo $productRow['name']; ?></td>
-                                    <td><?php echo $productRow['price']; ?></td>
+                                    <td>
+                                        <?php echo $orderDetails['order_id']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $productRow['name']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $productRow['price']; ?>
+                                    </td>
                                 </tr>
-                            <?php
+                                <?php
                             }
                             ?>
                             <tr>
                                 <td colspan="2">Total Price:</td>
-                                <td><?php echo $totalPrice; ?></td>
+                                <td>
+                                    <?php echo $totalPrice; ?>
+                                </td>
                             </tr>
                         </table>
                     <?php } else {
@@ -158,9 +190,15 @@ if ($result) {
                                 <td>Billing Address</td>
                             </tr>
                             <tr>
-                                <td><?php echo $billingDetails['bill_id']; ?></td>
-                                <td><?php echo $billingDetails['billing_name']; ?></td>
-                                <td><?php echo $billingDetails['billing_address']; ?></td>
+                                <td>
+                                    <?php echo $billingDetails['bill_id']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $billingDetails['billing_name']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $billingDetails['billing_address']; ?>
+                                </td>
                             </tr>
                         </table>
                     <?php } else {
@@ -173,7 +211,7 @@ if ($result) {
 
         </html>
 
-<?php
+        <?php
     } else {
         echo "Error retrieving product details: " . mysqli_error($conn);
         exit;

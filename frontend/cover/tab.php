@@ -2,6 +2,15 @@
 <html>
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW1MY7HB4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-PSW1MY7HB4');
+    </script>
     <title>Tab in Javascript</title>
     <style>
         body {
@@ -99,4 +108,3 @@
 </body>
 
 </html>
-

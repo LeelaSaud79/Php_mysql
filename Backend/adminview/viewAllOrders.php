@@ -4,16 +4,30 @@
 session_start();
 
 if (!isset($_SESSION['username'])) {
-    // header('location: login.php');
-    header('location: http://localhost/frontend/cover/Login.php');
-    exit;
-    
+  // header('location: login.php');
+  header('location: http://localhost/frontend/cover/Login.php');
+  exit;
+
 }
 
 require_once('../config/dbconnect.php');
 $query = "SELECT * from finalorder";
 $result = mysqli_query($conn, $query);
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW1MY7HB4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-PSW1MY7HB4');
+  </script>
+</head>
+
 <h2>Final Order items</h2>
 <div class=" card-body">
   <table class=" table table-bordered text-center">
@@ -41,7 +55,7 @@ $result = mysqli_query($conn, $query);
           <?php echo $row['ship_id']; ?>
         </td>
         <td>
-        <a href="./adminview/product_Details.php?final_id=<?php echo $row['final_id']; ?>">View Details</a>
+          <a href="./adminview/product_Details.php?final_id=<?php echo $row['final_id']; ?>">View Details</a>
         </td>
       </tr>
 
@@ -52,3 +66,4 @@ $result = mysqli_query($conn, $query);
   </table>
 
 </div>
+</html>
